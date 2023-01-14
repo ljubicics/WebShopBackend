@@ -31,7 +31,7 @@ exports.getUser = catchAsync(async (req, res) => {
   });
 });
 exports.createUser = catchAsync(async (req, res) => {
-  const newUser = await User.create({
+  await User.create({
     username: req.body.username,
     password: await bcrypt.hash(req.body.password, 10),
     email: req.body.email,
@@ -71,7 +71,11 @@ exports.updateUser = catchAsync(async (req, res) => {
   });
 });
 exports.deleteUser = catchAsync(async (req, res) => {
-  const count = await User.destroy({ where: { id: req.params.id } });
+  const count = await User.destroy({
+    where: {
+      id: req.params.id,
+    },
+  });
   res.status(200).json({
     status: "success",
     message: "User successfully deleted",

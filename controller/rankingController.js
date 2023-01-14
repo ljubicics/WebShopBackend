@@ -23,7 +23,7 @@ exports.addNewRanking = catchAsync(async (req, res) => {
 exports.getOneRanking = catchAsync(async (req, res) => {
   const ranking = await User_Ranking.findOne({
     where: {
-      id: req.body.id,
+      id: req.params.id,
     },
   });
   res.status(200).json({
@@ -34,7 +34,7 @@ exports.getOneRanking = catchAsync(async (req, res) => {
 
 exports.updateRanking = catchAsync(async (req, res) => {
   const ranking = await User_Ranking.upsert({
-    id: req.body.id,
+    id: req.params.id,
     discountID: req.body.discountID,
     ranking_name: req.body.ranking_name,
   });
@@ -47,7 +47,7 @@ exports.updateRanking = catchAsync(async (req, res) => {
 exports.deleteRanking = catchAsync(async (req, res) => {
   const ranking = await User_Ranking.destroy({
     where: {
-      id: req.body.id,
+      id: req.params.id,
     },
   });
   res.status(200).json({

@@ -19,14 +19,14 @@ exports.addNewReview = catchAsync(async (req, res) => {
   });
   res.status(200).json({
     status: "success",
-    data: products,
+    data: review,
   });
 });
 
 exports.getOneReview = catchAsync(async (req, res) => {
   const review = await Review.findOne({
     where: {
-      id: req.body.id,
+      id: req.params.id,
     },
   });
   res.status(200).json({
@@ -37,6 +37,7 @@ exports.getOneReview = catchAsync(async (req, res) => {
 
 exports.updateReview = catchAsync(async (req, res) => {
   const review = await Review.upsert({
+    id: req.params.id,
     userID: req.body.userID,
     productID: req.body.productID,
     review_title: req.body.review_title,
@@ -52,7 +53,7 @@ exports.updateReview = catchAsync(async (req, res) => {
 exports.deleteReview = catchAsync(async (req, res) => {
   const review = await Cart_Item.destroy({
     where: {
-      id: req.body.id,
+      id: req.params.id,
     },
   });
   res.status(200).json({
