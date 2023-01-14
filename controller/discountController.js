@@ -10,7 +10,7 @@ exports.getAllDiscounts = catchAsync(async (req, res) => {
 });
 
 exports.addNewDiscount = catchAsync(async (req, res) => {
-  const discounts = await Discount.findAll();
+  const discounts = await Discount.create({});
   res.status(200).json({
     status: "success",
     data: discounts,
