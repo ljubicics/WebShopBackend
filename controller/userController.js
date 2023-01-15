@@ -30,6 +30,7 @@ exports.getUser = catchAsync(async (req, res) => {
     },
   });
 });
+
 exports.createUser = catchAsync(async (req, res) => {
   await User.create({
     username: req.body.username,
@@ -45,7 +46,7 @@ exports.createUser = catchAsync(async (req, res) => {
     moderator: req.body.moderator,
   });
 
-  res.status(500).json({
+  res.status(200).json({
     status: "success",
     message: "You created a user successfully!",
   });

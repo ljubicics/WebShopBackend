@@ -18,8 +18,6 @@ exports.addProduct = catchAsync(async (req, res) => {
     product_price: req.body.product_price,
     image_url: req.body.image_url,
     product_quantity: req.body.product_quantity,
-    createdAt: new Date(),
-    updatedAt: new Date(),
   });
   res.status(200).json({
     status: "success",

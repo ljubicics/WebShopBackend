@@ -5,7 +5,7 @@ exports.getAllItemsInCart = catchAsync(async (req, res) => {
   const cart_items = await Cart_Item.findAll();
   res.status(200).json({
     status: "success",
-    data: products,
+    data: cart_items,
   });
 });
 

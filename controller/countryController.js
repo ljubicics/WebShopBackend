@@ -1,5 +1,6 @@
 const { Country } = require("../models");
 const catchAsync = require("../utils/catchAsync");
+const joi = require("joi");
 
 exports.getAllCountries = catchAsync(async (req, res) => {
   const countries = await Country.findAll();
@@ -32,7 +33,7 @@ exports.getOneCountry = catchAsync(async (req, res) => {
 });
 
 exports.updateCountry = catchAsync(async (req, res) => {
-  const countries = await Country.upsert({
+  const countries = await Country``.upsert({
     id: req.params.id,
     name: req.body.name,
   });
