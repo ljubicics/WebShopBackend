@@ -12,9 +12,9 @@ router
     reviewController.getAllReviews
   )
   .post(
-    rauthController.protect,
+    authController.protect,
     authController.restrictTo("admin", "moderator"),
-    eviewController.addNewReview
+    reviewController.addNewReview
   );
 
 router
