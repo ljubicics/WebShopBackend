@@ -9,7 +9,7 @@ const discountRouter = require("./routes/discountRoutes");
 const orderRouter = require("./routes/orderRoutes");
 const orderItemRouter = require("./routes/orderItemRoutes");
 const paymentInfoRouter = require("./routes/paymentInfoRoutes");
-const reviewsRouter = require("./routes/reviewsRoutes");
+const reviewsRouter = require("./routes/reviewRoutes");
 const rankingRouter = require("./routes/rankingRoutes");
 
 const globalErrorHandler = require("./controller/errorController");
@@ -31,7 +31,7 @@ app.use("/admin/order", orderRouter);
 app.use("/admin/orderitem", orderItemRouter);
 app.use("/admin/paymentinfo", paymentInfoRouter);
 app.use("/admin/reviews", reviewsRouter);
-app.use("admin/rankings", rankingRouter);
+app.use("/admin/rankings", rankingRouter);
 
 app.use(globalErrorHandler);
 

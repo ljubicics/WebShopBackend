@@ -4,6 +4,7 @@ const { User } = require("../models");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("./../utils/appError");
 const { promisify } = require("util");
+const joi = require("joi");
 
 const signToken = (id) => {
   return jwt.sign({ id: id }, process.env.JWT_SECRET, {
@@ -12,20 +13,39 @@ const signToken = (id) => {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
-  console.log(req.body);
-  const newUser = await User.create({
-    username: req.body.username,
-    password: await bcrypt.hash(req.body.password, 10),
-    email: req.body.email,
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    street: req.body.street,
-    number: req.body.number,
-    postal_code: req.body.postal_code,
-    points: req.body.points,
-    admin: req.body.admin,
-    moderator: req.body.moderator,
+  const check = joi.object().keys({
+    username: joi.string().min(3).max(15).required(),
+    password: joi.string().min(3).max(15).required(), // moze da se koristi joiPasswordExtendCore da se proveri odredjena prisutnost karaktera
+    email: joi.string().trim().email().required(),
+    first_name: joi.string().min(3).max(15).required(),
+    last_name: joi.string().min(3).max(15).required(),
+    street: joi.string().min(3).max(15).required(),
+    number: joi.number().min(3).max(15).required,
+    postal_code: joi.number().min(3).max(15).required,
+    points: joi.string().min(0).max(100).required(),
+    admin: joi.boolean(),
+    moderator: joi.boolean(),
   });
+
+  const validate = check.validate(req.body);
+
+  if (validate.error) {
+    res.status(422).json({ msg: ValidationError.error.message });
+  } else {
+    const newUser = await User.create({
+      username: req.body.username,
+      password: await bcrypt.hash(req.body.password, 10),
+      email: req.body.email,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      street: req.body.street,
+      number: req.body.number,
+      postal_code: req.body.postal_code,
+      points: req.body.points,
+      admin: req.body.admin,
+      moderator: req.body.moderator,
+    });
+  }
 
   const token = signToken(newUser.id);
 
@@ -107,6 +127,8 @@ exports.restrictTo = (...roles) => {
   return catchAsync(async (req, res, next) => {
     if (req.user.admin === true) {
       role = "admin";
+    } else if (req.user.moderator === true) {
+      role = "moderator";
     } else {
       role = "user";
     }

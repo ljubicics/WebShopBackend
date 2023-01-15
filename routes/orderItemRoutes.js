@@ -1,5 +1,5 @@
 const express = require("express");
-const cartController = require("../controller/orderItemController");
+const orderItemController = require("../controller/orderItemController");
 const router = express.Router();
 
 router
@@ -10,7 +10,7 @@ router
 router
   .route("/:id")
   .get(orderItemController.getOneOrderItem)
-  .patch(orderItemController.udateOrderItem)
+  .patch(orderItemController.updateOrderItem)
   .delete(orderItemController.deleteOrderItem);
 
 module.exports = router;
