@@ -3,13 +3,15 @@ const productController = require("../controller/productController");
 
 const router = express.Router();
 
-router.route("/").get(productController.getAllProducts);
-router.route("/addProduct").post(productController.addProduct);
+router.route("/").get(authController.protect, productController.getAllProducts);
+router
+  .route("/addProduct")
+  .post(authController.protect, productController.addProduct);
 
 router
   .route("/:id")
-  .get(productController.getOneProduct)
-  .patch(productController.updateProduct)
-  .delete(productController.deleteProduct);
+  .get(authController.protect, productController.getOneProduct)
+  .patch(authController.protect, productController.updateProduct)
+  .delete(authController.protect, productController.deleteProduct);
 
 module.exports = router;

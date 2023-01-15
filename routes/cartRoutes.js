@@ -4,13 +4,13 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(cartController.getAllItemsInCart)
-  .post(cartController.addNewCartItem);
+  .get(authController.protect, cartController.getAllItemsInCart)
+  .post(authController.protect, cartController.addNewCartItem);
 
 router
   .route("/:id")
-  .get(cartController.getOneCartItem)
-  .patch(cartController.updateCartItem)
-  .delete(cartController.deleteCartItem);
+  .get(authController.protect, cartController.getOneCartItem)
+  .patch(authController.protect, cartController.updateCartItem)
+  .delete(authController.protect, cartController.deleteCartItem);
 
 module.exports = router;

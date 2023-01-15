@@ -4,13 +4,13 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(cityController.getAllCities)
-  .post(cityController.addNewCity);
+  .get(authController.protect, cityController.getAllCities)
+  .post(authController.protect, cityController.addNewCity);
 
 router
   .route("/:id")
-  .get(cityController.getOneCity)
-  .patch(cityController.updateCity)
-  .delete(cityController.deleteCity);
+  .get(authController.protect, cityController.getOneCity)
+  .patch(authController.protect, cityController.updateCity)
+  .delete(authController.protect, cityController.deleteCity);
 
 module.exports = router;

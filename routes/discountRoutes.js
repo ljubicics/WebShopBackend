@@ -5,13 +5,13 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(discountController.getAllDiscounts)
-  .post(discountController.addNewDiscount);
+  .get(authController.protect, discountController.getAllDiscounts)
+  .post(authController.protect, discountController.addNewDiscount);
 
 router
   .route("/:id")
-  .get(discountController.getOneDiscount)
-  .patch(discountController.updateDiscount)
-  .delete(discountController.deleteDiscount);
+  .get(authController.protect, discountController.getOneDiscount)
+  .patch(authController.protect, discountController.updateDiscount)
+  .delete(authController.protect, discountController.deleteDiscount);
 
 module.exports = router;

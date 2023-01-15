@@ -4,13 +4,13 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(reviewController.getAllReviews)
-  .post(reviewController.addNewReview);
+  .get(authController.protect, reviewController.getAllReviews)
+  .post(rauthController.protect, eviewController.addNewReview);
 
 router
   .route("/:id")
-  .get(reviewController.getOneReview)
-  .patch(reviewController.updateReview)
-  .delete(reviewController.deleteReview);
+  .get(authController.protect, reviewController.getOneReview)
+  .patch(authController.protect, reviewController.updateReview)
+  .delete(authController.protect, reviewController.deleteReview);
 
 module.exports = router;

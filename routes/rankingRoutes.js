@@ -4,13 +4,13 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(rankingController.getAllRankings)
-  .post(rankingController.addNewRanking);
+  .get(authController.protect, rankingController.getAllRankings)
+  .post(authController.protect, rankingController.addNewRanking);
 
 router
   .route("/:id")
-  .get(rankingController.getOneRanking)
-  .patch(rankingController.updateRanking)
-  .delete(rankingController.deleteRanking);
+  .get(authController.protect, rankingController.getOneRanking)
+  .patch(authController.protect, rankingController.updateRanking)
+  .delete(authController.protect, rankingController.deleteRanking);
 
 module.exports = router;

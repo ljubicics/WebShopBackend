@@ -4,13 +4,13 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(countryController.getAllCountries)
-  .post(countryController.addNewCountry);
+  .get(authController.protect, countryController.getAllCountries)
+  .post(authController.protect, countryController.addNewCountry);
 
 router
   .route("/:id")
-  .get(countryController.getOneCountry)
-  .patch(countryController.updateCountry)
-  .delete(countryController.deleteCountry);
+  .get(authController.protect, countryController.getOneCountry)
+  .patch(authController.protect, countryController.updateCountry)
+  .delete(authController.protect, countryController.deleteCountry);
 
 module.exports = router;

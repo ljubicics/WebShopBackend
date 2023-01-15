@@ -5,13 +5,13 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(paymentInfoController.getAllPaymentInfos)
-  .post(paymentInfoController.addPaymentInfo);
+  .get(authController.protect, paymentInfoController.getAllPaymentInfos)
+  .post(authController.protect, paymentInfoController.addPaymentInfo);
 
 router
   .route("/:id")
-  .get(paymentInfoController.getOnePaymentInfo)
-  .patch(paymentInfoController.updatePaymentInfo)
-  .delete(paymentInfoController.deletePaymentInfo);
+  .get(authController.protect, paymentInfoController.getOnePaymentInfo)
+  .patch(authController.protect, paymentInfoController.updatePaymentInfo)
+  .delete(authController.protect, paymentInfoController.deletePaymentInfo);
 
 module.exports = router;

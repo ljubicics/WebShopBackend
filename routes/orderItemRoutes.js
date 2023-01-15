@@ -4,13 +4,13 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(orderItemController.getAllOrderItems)
-  .post(orderItemController.addNewOrderItem);
+  .get(authController.protect, orderItemController.getAllOrderItems)
+  .post(authController.protect, orderItemController.addNewOrderItem);
 
 router
   .route("/:id")
-  .get(orderItemController.getOneOrderItem)
-  .patch(orderItemController.updateOrderItem)
-  .delete(orderItemController.deleteOrderItem);
+  .get(authController.protect, orderItemController.getOneOrderItem)
+  .patch(authController.protect, orderItemController.updateOrderItem)
+  .delete(authController.protect, orderItemController.deleteOrderItem);
 
 module.exports = router;
