@@ -1,5 +1,7 @@
 const express = require("express");
 const rankingController = require("../controller/rankingController");
+const authController = require("../controller/authController");
+
 const router = express.Router();
 
 router
