@@ -6,13 +6,33 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(authController.protect, cityController.getAllCities)
-  .post(authController.protect, cityController.addNewCity);
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    cityController.getAllCities
+  )
+  .post(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    cityController.addNewCity
+  );
 
 router
   .route("/:id")
-  .get(authController.protect, cityController.getOneCity)
-  .patch(authController.protect, cityController.updateCity)
-  .delete(authController.protect, cityController.deleteCity);
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    cityController.getOneCity
+  )
+  .patch(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    cityController.updateCity
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    cityController.deleteCity
+  );
 
 module.exports = router;

@@ -6,13 +6,33 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(authController.protect, orderItemController.getAllOrderItems)
-  .post(authController.protect, orderItemController.addNewOrderItem);
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    orderItemController.getAllOrderItems
+  )
+  .post(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    orderItemController.addNewOrderItem
+  );
 
 router
   .route("/:id")
-  .get(authController.protect, orderItemController.getOneOrderItem)
-  .patch(authController.protect, orderItemController.updateOrderItem)
-  .delete(authController.protect, orderItemController.deleteOrderItem);
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    orderItemController.getOneOrderItem
+  )
+  .patch(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    orderItemController.updateOrderItem
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    orderItemController.deleteOrderItem
+  );
 
 module.exports = router;

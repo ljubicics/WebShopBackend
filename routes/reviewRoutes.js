@@ -6,13 +6,33 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(authController.protect, reviewController.getAllReviews)
-  .post(rauthController.protect, eviewController.addNewReview);
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    reviewController.getAllReviews
+  )
+  .post(
+    rauthController.protect,
+    authController.restrictTo("admin", "moderator"),
+    eviewController.addNewReview
+  );
 
 router
   .route("/:id")
-  .get(authController.protect, reviewController.getOneReview)
-  .patch(authController.protect, reviewController.updateReview)
-  .delete(authController.protect, reviewController.deleteReview);
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    reviewController.getOneReview
+  )
+  .patch(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    reviewController.updateReview
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    reviewController.deleteReview
+  );
 
 module.exports = router;

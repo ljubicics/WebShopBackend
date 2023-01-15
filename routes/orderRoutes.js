@@ -11,12 +11,28 @@ router
     authController.protect,
     orderController.getAllOrders
   )
-  .post(authController.protect, orderController.addNewOrder);
+  .post(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    orderController.addNewOrder
+  );
 
 router
   .route("/:id")
-  .get(authController.protect, orderController.getOneOrder)
-  .patch(authController.protect, orderController.updateOrder)
-  .delete(authController.protect, orderController.deleteOrder);
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    orderController.getOneOrder
+  )
+  .patch(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    orderController.updateOrder
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    orderController.deleteOrder
+  );
 
 module.exports = router;

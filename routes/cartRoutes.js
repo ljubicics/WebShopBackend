@@ -6,13 +6,33 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(authController.protect, cartController.getAllItemsInCart)
-  .post(authController.protect, cartController.addNewCartItem);
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    cartController.getAllItemsInCart
+  )
+  .post(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    cartController.addNewCartItem
+  );
 
 router
   .route("/:id")
-  .get(authController.protect, cartController.getOneCartItem)
-  .patch(authController.protect, cartController.updateCartItem)
-  .delete(authController.protect, cartController.deleteCartItem);
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    cartController.getOneCartItem
+  )
+  .patch(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    cartController.updateCartItem
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    cartController.deleteCartItem
+  );
 
 module.exports = router;

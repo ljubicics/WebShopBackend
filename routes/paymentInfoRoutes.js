@@ -6,13 +6,33 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(authController.protect, paymentInfoController.getAllPaymentInfos)
-  .post(authController.protect, paymentInfoController.addPaymentInfo);
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    paymentInfoController.getAllPaymentInfos
+  )
+  .post(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    paymentInfoController.addPaymentInfo
+  );
 
 router
   .route("/:id")
-  .get(authController.protect, paymentInfoController.getOnePaymentInfo)
-  .patch(authController.protect, paymentInfoController.updatePaymentInfo)
-  .delete(authController.protect, paymentInfoController.deletePaymentInfo);
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    paymentInfoController.getOnePaymentInfo
+  )
+  .patch(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    paymentInfoController.updatePaymentInfo
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin", "moderator"),
+    paymentInfoController.deletePaymentInfo
+  );
 
 module.exports = router;
