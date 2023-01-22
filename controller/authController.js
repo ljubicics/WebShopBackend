@@ -20,9 +20,9 @@ exports.signup = catchAsync(async (req, res, next) => {
     first_name: joi.string().min(3).max(15).required(),
     last_name: joi.string().min(3).max(15).required(),
     street: joi.string().min(3).max(15).required(),
-    number: joi.number().min(3).max(15).required,
-    postal_code: joi.number().min(3).max(15).required,
-    points: joi.string().min(0).max(100).required(),
+    number: joi.string().min(3).max(15).required(),
+    postal_code: joi.string().min(3).max(15).required(),
+    points: joi.number().min(0).max(100).required(),
     admin: joi.boolean(),
     moderator: joi.boolean(),
   });
@@ -45,18 +45,19 @@ exports.signup = catchAsync(async (req, res, next) => {
       admin: req.body.admin,
       moderator: req.body.moderator,
     });
+
+  
+    const token = signToken(newUser.id);
+
+    res.status(201).json({
+      status: "success",
+      token,
+      data: {
+        id: req.body.id,
+        user: req.body,
+      },
+    });
   }
-
-  const token = signToken(newUser.id);
-
-  res.status(201).json({
-    status: "success",
-    token,
-    data: {
-      id: req.body.id,
-      user: req.body,
-    },
-  });
 });
 
 exports.login = catchAsync(async (req, res, next) => {
