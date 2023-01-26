@@ -7,9 +7,16 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Review, Cart_Item, Discount, Order_Item }) {
+    static associate({
+      Review,
+      Cart_Item,
+      Discount,
+      Order_Item,
+      Product_Type,
+    }) {
       // define association here
       this.belongsTo(Discount, { foreignKey: "discountID" });
+      this.belongsTo(Product_Type, { foreignKey: "productTypeID" });
       this.hasMany(Review, {
         foreignKey: "productID",
         onDelete: "cascade",
@@ -30,9 +37,6 @@ module.exports = (sequelize, DataTypes) => {
   Product.init(
     {
       product_name: {
-        type: DataTypes.STRING,
-      },
-      product_type: {
         type: DataTypes.STRING,
       },
       product_description: {

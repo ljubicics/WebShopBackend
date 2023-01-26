@@ -6,7 +6,7 @@ module.exports = {
     return queryInterface.bulkInsert("Products", [
       {
         product_name: "Infinity",
-        product_type: "Necklace",
+        productTypeID: 2,
         product_description: "Beautiful infinity necklace",
         product_material: "gold",
         product_price: 100,
@@ -17,7 +17,7 @@ module.exports = {
       },
       {
         product_name: "Love",
-        product_type: "Bracelet",
+        productTypeID: 1,
         product_description: "Beautiful love bracelet",
         product_material: "silver",
         product_price: 15,
@@ -28,7 +28,7 @@ module.exports = {
       },
       {
         product_name: "Clover",
-        product_type: "Bracelet",
+        productTypeID: 1,
         product_description: "Beautiful clover bracelet",
         product_material: "gold",
         product_price: 70,
@@ -39,7 +39,7 @@ module.exports = {
       },
       {
         product_name: "Infinity 2",
-        product_type: "Necklace",
+        productTypeID: 2,
         product_description: "Beautiful necklace",
         product_material: "silver",
         product_price: 25,

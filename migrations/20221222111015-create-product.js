@@ -12,10 +12,10 @@ module.exports = {
       discountID: {
         type: Sequelize.INTEGER,
       },
-      product_name: {
-        type: Sequelize.STRING,
+      productTypeID: {
+        type: Sequelize.INTEGER,
       },
-      product_type: {
+      product_name: {
         type: Sequelize.STRING,
       },
       product_description: {

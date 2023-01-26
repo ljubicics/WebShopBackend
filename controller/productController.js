@@ -65,3 +65,15 @@ exports.updateProduct = catchAsync(async (req, res) => {
     message: "You updated product successfully",
   });
 });
+
+exports.getProductsByType = catchAsync(async (req, res) => {
+  const products = await Product.findAll({
+    where: {
+      productTypeID: req.params.typeID,
+    },
+  });
+  res.status(200).json({
+    status: "success",
+    data: products,
+  });
+});

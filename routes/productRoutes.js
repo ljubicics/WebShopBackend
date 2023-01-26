@@ -4,13 +4,7 @@ const authController = require("../controller/authController");
 
 const router = express.Router();
 
-router
-  .route("/")
-  .get(
-    authController.protect,
-    authController.restrictTo("admin", "moderator"),
-    productController.getAllProducts
-  );
+router.route("/").get(productController.getAllProducts);
 router
   .route("/addProduct")
   .post(
@@ -36,5 +30,7 @@ router
     authController.restrictTo("admin", "moderator"),
     productController.deleteProduct
   );
+
+router.route("/byType/:typeID").get(productController.getProductsByType);
 
 module.exports = router;
