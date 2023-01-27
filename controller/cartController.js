@@ -45,7 +45,8 @@ exports.updateCartItem = catchAsync(async (req, res) => {
 exports.deleteCartItem = catchAsync(async (req, res) => {
   const cart_item = await Cart_Item.destroy({
     where: {
-      id: req.params.id,
+      userID: req.params.userID,
+      productID: req.params.productID,
     },
   });
   res.status(200).json({

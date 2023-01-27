@@ -28,11 +28,7 @@ router
     authController.protect,
     authController.restrictTo("admin", "moderator"),
     cartController.updateCartItem
-  )
-  .delete(
-    authController.protect,
-    authController.restrictTo("admin", "moderator"),
-    cartController.deleteCartItem
   );
+router.route("/:productID/:userID").delete(authController.protect, cartController.deleteCartItem);
 
 module.exports = router;
