@@ -20,11 +20,6 @@ exports.signup = catchAsync(async (req, res, next) => {
     first_name: joi.string().min(3).max(15).required(),
     last_name: joi.string().min(3).max(15).required(),
     street: joi.string().min(3).max(15).required(),
-    number: joi.string().min(3).max(15).required(),
-    postal_code: joi.string().min(3).max(15).required(),
-    points: joi.number().min(0).max(100).required(),
-    admin: joi.boolean(),
-    moderator: joi.boolean(),
   });
 
   const validate = check.validate(req.body);
@@ -39,14 +34,11 @@ exports.signup = catchAsync(async (req, res, next) => {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       street: req.body.street,
-      number: req.body.number,
-      postal_code: req.body.postal_code,
-      points: req.body.points,
-      admin: req.body.admin,
-      moderator: req.body.moderator,
+      points: 0,
+      admin: false,
+      moderator: false,
     });
 
-  
     const token = signToken(newUser.id);
 
     res.status(201).json({
@@ -75,7 +67,7 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 
   // check if there is an error, if it goes past this line, then password is correct
-  if (!user /*!bcrypt.compareSync(password, user.password)*/) {
+  if (!user || !bcrypt.compareSync(password, user.password)) {
     return next(new AppError("Incorrect username or password", 401));
   }
 
@@ -91,18 +83,13 @@ exports.login = catchAsync(async (req, res, next) => {
 exports.protect = catchAsync(async (req, res, next) => {
   // Getting token and check if it is there
   let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
+  if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
     token = req.headers.authorization.split(" ")[1];
   }
   //console.log(token);
 
   if (!token) {
-    return next(
-      new AppError("You are not logged in! Please log in to get access", 401)
-    );
+    return next(new AppError("You are not logged in! Please log in to get access", 401));
   }
 
   // Verification token (check if token has been changed)
@@ -135,9 +122,7 @@ exports.restrictTo = (...roles) => {
     }
 
     if (!roles.includes(role)) {
-      return next(
-        new AppError("You do not have permission to perform this action", 403)
-      );
+      return next(new AppError("You do not have permission to perform this action", 403));
     }
     next();
   });

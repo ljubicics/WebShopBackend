@@ -21,8 +21,8 @@ exports.addNewCartItem = catchAsync(async (req, res) => {
   });
 });
 
-exports.getOneCartItem = catchAsync(async (req, res) => {
-  const cart_item = await Cart_Item.findOne({ where: { id: req.params.id } });
+exports.getCartItemsForUser = catchAsync(async (req, res) => {
+  const cart_item = await Cart_Item.findAll({ where: { userID: req.params.id } });
   res.status(200).json({
     status: "success",
     data: cart_item,

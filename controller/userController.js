@@ -1,5 +1,6 @@
 const { User } = require("../models");
 const catchAsync = require("../utils/catchAsync");
+const bcrypt = require("bcryptjs");
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -39,11 +40,9 @@ exports.createUser = catchAsync(async (req, res) => {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     street: req.body.street,
-    number: req.body.number,
-    postal_code: req.body.postal_code,
-    points: req.body.points,
-    admin: req.body.admin,
-    moderator: req.body.moderator,
+    points: 0,
+    admin: false,
+    moderator: false,
   });
 
   res.status(200).json({

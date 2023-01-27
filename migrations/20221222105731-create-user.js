@@ -37,12 +37,6 @@ module.exports = {
       street: {
         type: Sequelize.STRING,
       },
-      number: {
-        type: Sequelize.STRING,
-      },
-      postal_code: {
-        type: Sequelize.STRING,
-      },
       points: {
         type: Sequelize.INTEGER,
       },

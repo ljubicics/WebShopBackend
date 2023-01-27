@@ -23,10 +23,10 @@ exports.addNewReview = catchAsync(async (req, res) => {
   });
 });
 
-exports.getOneReview = catchAsync(async (req, res) => {
-  const review = await Review.findOne({
+exports.getReviewsForProduct = catchAsync(async (req, res) => {
+  const review = await Review.findAll({
     where: {
-      id: req.params.id,
+      productID: req.params.id,
     },
   });
   res.status(200).json({

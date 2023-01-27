@@ -6,11 +6,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(
-    authController.protect,
-    authController.restrictTo("admin", "moderator"),
-    reviewController.getAllReviews
-  )
+  .get(reviewController.getAllReviews)
   .post(
     authController.protect,
     authController.restrictTo("admin", "moderator"),
@@ -19,11 +15,7 @@ router
 
 router
   .route("/:id")
-  .get(
-    authController.protect,
-    authController.restrictTo("admin", "moderator"),
-    reviewController.getOneReview
-  )
+  .get(reviewController.getReviewsForProduct)
   .patch(
     authController.protect,
     authController.restrictTo("admin", "moderator"),

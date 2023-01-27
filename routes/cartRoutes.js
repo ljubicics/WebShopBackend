@@ -13,7 +13,7 @@ router
   )
   .post(
     authController.protect,
-    authController.restrictTo("admin", "moderator"),
+    /*authController.restrictTo("admin", "moderator"),*/
     cartController.addNewCartItem
   );
 
@@ -21,8 +21,8 @@ router
   .route("/:id")
   .get(
     authController.protect,
-    authController.restrictTo("admin", "moderator"),
-    cartController.getOneCartItem
+    //authController.restrictTo("admin", "moderator"),
+    cartController.getCartItemsForUser
   )
   .patch(
     authController.protect,
